@@ -2,15 +2,15 @@
 {% block title %}Add New User{% endblock %}
 {% block content %}
 <h1>Create a User</h1>
-<form method = "POST" action = "/">
+<form method = "POST" action = "/add-user">
     <label for="username">Username:</label>
-    <input type="text" id="username" required>
-    <label for="given-name">Given Name:</label>
-    <input type="text" id="given-name">
-    <label for="surname">Surname:</label>
-    <input type="text" id="surname">
+    <input type="text" id="username" name="username" required>
+    <label for="last-name">Given Name:</label>
+    <input type="text" id="first-name" name="first-name">
+    <label for="last-name">Surname:</label>
+    <input type="text" id="last-name" name="last-name">
     <label for="img-url">Profile Picture:</label>
-    <input type="text" id="img-url">
+    <input type="text" id="img-url" name="img-url">
     <button>Add User</button>
 </form>
 {% endblock %}
