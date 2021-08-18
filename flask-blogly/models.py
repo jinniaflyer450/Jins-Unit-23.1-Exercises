@@ -2,7 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLALchemy()
+db = SQLAlchemy()
 
 def connect_db(app):
     db.app = app
@@ -17,4 +17,4 @@ class User(db.Model):
     username = db.Column(db.String(30), nullable = False, unique = True)
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(30))
-    image_url = db.Column(db.string(30), default = 'Insert_default_image_later')
+    image_url = db.Column(db.String(30), default = 'Insert_default_image_later')
