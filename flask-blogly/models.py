@@ -1,5 +1,5 @@
 """Models for Blogly."""
-
+from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -17,4 +17,4 @@ class User(db.Model):
     username = db.Column(db.String(30), nullable = False, unique = True)
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(30))
-    image_url = db.Column(db.String(30), default = 'Insert_default_image_later')
+    image_url = db.Column(db.String(50), default="no_image")

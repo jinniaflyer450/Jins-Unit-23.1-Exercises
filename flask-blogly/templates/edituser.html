@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Edit Details For {{user.username}} {% endblock %}
+{% block content %}
+<h1>Edit {{user.username}}'s Details</h1>
+<p>Current Username: {{user.username}}</p>
+<label for="username">New Username:</label>
+<input type="text" name="username" id="username">
+<p>Current First Name: {{user.first_name}}</p>
+<label for="first_name">New First Name:</label>
+<input type="text" name="first_name" id="first_name">
+<p>Current Last Name: {{user.last_name}}</p>
+<label for="last_name">New Last Name:</label>
+<input type="text" name="last_name" id="last_name">
+<p>Current Profile Pic URL: {{user.image_url}}</p>
+<img class='profile_pic' src='{{user.image_url}}'>
+<label for="img_url">New Profile Pic URL:</label>
+<input type="text" name="img_url" id="img_url">
+<a href="/users/{{user.id}}">Cancel</a>
+{% endblock %}

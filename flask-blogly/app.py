@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, url_for
 from models import db, connect_db, User
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,9 +14,18 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 connect_db(app)
 db.create_all()
 
+@app.route('/')
+def redirect_home():
+    return redirect('/users')
+
 @app.route('/users')
 def show_users():
     users = User.query.all()
+    for user in users:
+        if user.image_url == "no_image":
+            user.image_url = url_for('static', filename='no_image.png')
+            db.session.add(user)
+            db.session.commit()
     return render_template('index.html', users=users)
 
 @app.route('/users/new')
@@ -34,3 +43,12 @@ def add_user():
     db.session.commit()
     return redirect('/users')
 
+@app.route('/users/<int:user_id>')
+def show_user_details(user_id):
+    user = User.query.get(user_id)
+    return render_template('userdetails.html', user=user)
+
+@app.route('/users/<int:user_id>/edit')
+def edit_user_details(user_id):
+    user = User.query.get(user_id)
+    return render_template('edituser.html', user=user)

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}} Details{% endblock %}
+{% block content %}
+<h1>{{user.username}}</h1>
+<h2>Personal Details:</h2>
+<ul>
+    {% if user.first_name != '' %}<li>First Name: {{user.first_name}}</li>{% endif %}
+    {% if user.last_name != '' %}<li>Last Name: {{user.last_name}}</li>{% endif %}
+    <a href="/users/{{user.id}}/edit">Edit User</a>
+    <a>Delete User</a>
+    <a href='/users'>Return to User List</a>
+</ul>
+{% endblock %}
