@@ -2,6 +2,7 @@
 {% block title %}{{user.username}} Details{% endblock %}
 {% block content %}
 <h1>{{user.username}}</h1>
+<img class= "profile_pic" src="{{user.image_url}}">
 <h2>Personal Details:</h2>
 <ul>
     {% if user.first_name != '' %}<li>First Name: {{user.first_name}}</li>{% endif %}
