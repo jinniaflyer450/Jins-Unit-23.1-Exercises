@@ -52,6 +52,10 @@ def show_user_details(user_id):
     return render_template('userdetails.html', user=user)
 
 @app.route('/users/<int:user_id>/edit')
-def edit_user_details(user_id):
+def edit_user_details_form(user_id):
     user = User.query.get(user_id)
     return render_template('edituser.html', user=user)
+
+@app.route('/users/<int:user_id>/edit', methods=['POST'])
+def edit_user_details(user_id):
+    add_user()
