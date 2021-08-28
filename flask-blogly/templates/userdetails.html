@@ -7,8 +7,14 @@
 <ul>
     {% if user.first_name != '' %}<li>First Name: {{user.first_name}}</li>{% endif %}
     {% if user.last_name != '' %}<li>Last Name: {{user.last_name}}</li>{% endif %}
-    <a href="/users/{{user.id}}/edit">Edit User</a>
-    <a>Delete User</a>
-    <a href='/users'>Return to User List</a>
+    <form action="/users/{{user.id}}/edit">
+        <button>Edit User</button>
+    </form>
+    <form method="POST" action="/users/{{user.id}}/delete">
+        <button>Delete User</button>
+    </form>
+    <form action="/users">
+        <button>Return to User List</button>
+    </form>
 </ul>
 {% endblock %}

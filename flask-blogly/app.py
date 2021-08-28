@@ -58,4 +58,26 @@ def edit_user_details_form(user_id):
 
 @app.route('/users/<int:user_id>/edit', methods=['POST'])
 def edit_user_details(user_id):
-    add_user()
+    user = User.query.get(user_id)
+    username = request.form['username']
+    first_name = request.form['first-name']
+    last_name = request.form['last-name']
+    img_url = request.form['img-url']
+    if username != '':
+        user.username = username
+    if first_name != '':
+        user.first_name = first_name
+    if last_name != '':
+        user.last_name = last_name
+    if img_url != '':
+        user.image_url = img_url
+    db.session.add(user)
+    db.session.commit()
+    return redirect('/users')
+
+@app.route('/users/<int:user_id>/delete', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect('/users')

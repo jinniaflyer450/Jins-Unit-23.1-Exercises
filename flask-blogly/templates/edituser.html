@@ -7,15 +7,15 @@
     <label for="username">New Username:</label>
     <input type="text" name="username" id="username">
     <p>Current First Name: {{user.first_name}}</p>
-    <label for="first_name">New First Name:</label>
-    <input type="text" name="first_name" id="first_name">
+    <label for="first-name">New First Name:</label>
+    <input type="text" name="first-name" id="first-name">
     <p>Current Last Name: {{user.last_name}}</p>
-    <label for="last_name">New Last Name:</label>
-    <input type="text" name="last_name" id="last_name">
+    <label for="last-name">New Last Name:</label>
+    <input type="text" name="last-name" id="last-name">
     <p>Current Profile Pic URL: {{user.image_url}}</p>
     <img class='profile_pic' src='{{user.image_url}}'>
-    <label for="img_url">New Profile Pic URL:</label>
-    <input type="text" name="img_url" id="img_url">
+    <label for="img-url">New Profile Pic URL:</label>
+    <input type="text" name="img-url" id="img-url">
     <button>Submit</button>
 </form>
 <a href="/users/{{user.id}}">Cancel</a>
