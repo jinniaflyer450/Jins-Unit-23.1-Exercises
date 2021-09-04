@@ -101,3 +101,20 @@ def add_post(user_id):
     db.session.commit()
     return redirect(f'/users/{user_id}')
 
+@app.route('/posts/<int:post_id>/edit')
+def edit_post_form(post_id):
+    post = Post.query.get(post_id)
+    return render_template('editpost.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def edit_post(post_id):
+    post = Post.query.get(post_id)
+    title = request.form['title']
+    content = request.form['content']
+    post.title = title
+    post.content = content
+    db.session.add(post)
+    db.session.commit()
+    return redirect(f'/posts/{post_id}')
+
+
