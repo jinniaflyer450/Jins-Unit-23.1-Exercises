@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from flask_sqlalchemy import SQLAlchemy
 from app import app
 from seed import reset_database, insert_data
@@ -89,6 +89,33 @@ class BloglyTests(TestCase):
             response = client.get('/users/3')
             self.assertIn('<li>First Name: Cate</li>', response.get_data(as_text=True))
             self.assertIn('<li>Last Name: Merriweather</li>', response.get_data(as_text=True))
+    
+    def test_show_post(self):
+        """Tests if 'show_post' returns 'postdetail.html' with the correct post data."""
+        with app.test_client() as client:
+            response = client.get('/posts/1')
+            self.assertIn('L33t hackz', response.get_data(as_text=True))
+            self.assertIn('Here are some l33t', response.get_data(as_text=True))
+    
+    def test_add_post_form(self):
+        """Tests if 'add_post_form' returns 'addpost.html' with the correct user."""
+        with app.test_client() as client:
+            response = client.get('/users/1/posts/new')
+            self.assertIn('action="/users/1/posts/new"', response.get_data(as_text=True))
+    
+    def test_add_post_redirect(self):
+        """Tests if 'add_post' returns a redirect to 'userdetails.html' with the new post added to the list of posts in the 
+        template."""
+        with app.test_client() as client:
+            response = client.post('/users/1/posts/new', data={'title': 'New Post', 'content': 'lorem ipsum'}, follow_redirects=True)
+            self.assertIn("<a href='/posts/5'>", response.get_data(as_text=True))
 
-
-
+    def test_add_post_db(self):
+        """Tests if 'add_post' adds the given post to the correct user's list of posts in the database."""
+        with app.test_client() as client:
+            self.assertEqual(None, Post.query.get(5))
+            response = client.post('/users/1/posts/new', data={'title': 'New Post', 'content': 'lorem ipsum'}, follow_redirects=True)
+            new_post = Post.query.get(5)
+            self.assertEqual(new_post.title, 'New Post')
+            self.assertEqual(new_post.content, 'lorem ipsum')
+            self.assertEqual(new_post.user.id, 1)
