@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title}}{% endblock %}
+{% block content %}
+<h1>{{post.title}}</h1>
+{% if post.content != '' %}
+<p>{{post.content}}</p>
+{% else %}
+<p>This post has no content!</p>
+{% endif %}
+<p><em>Posted by {{post.user.username}}</em></p>
+<form action="/users/{{post.user.id}}">
+    <button>Return To User</button>
+</form>
+<form>
+    <button>Edit Post</button>
+</form>
+<form>
+    <button>Delete Post</button>
+</form>
+{% endblock %}

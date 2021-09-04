@@ -9,7 +9,7 @@
     {% if user.last_name != '' %}<li>Last Name: {{user.last_name}}</li>{% endif %}
     <h2>Posts</h2>
     {% if user.posts != [] %}
-    {% for post in user.posts %}<li>{{post.title}}</li>{% endfor %}
+    {% for post in user.posts %}<li><a href='/posts/{{post.id}}'>{{post.title}}</a></li>{% endfor %}
     {% else %}
     <p>This user has no posts!</p>
     {% endif %}
@@ -21,6 +21,9 @@
     </form>
     <form action="/users">
         <button>Return to User List</button>
+    </form>
+    <form action="/users/{{user.id}}/posts/new">
+        <button>Add Post</button>
     </form>
 </ul>
 {% endblock %}
