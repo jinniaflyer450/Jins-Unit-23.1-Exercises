@@ -14,7 +14,7 @@
 <form action="/posts/{{post.id}}/edit">
     <button>Edit Post</button>
 </form>
-<form>
+<form method = 'POST' action="/posts/{{post.id}}/delete">
     <button>Delete Post</button>
 </form>
 {% endblock %}
