@@ -1,4 +1,4 @@
-from models import User, db
+from models import User, Post, db
 from app import app
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, url_for

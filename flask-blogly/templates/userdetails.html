@@ -7,6 +7,12 @@
 <ul>
     {% if user.first_name != '' %}<li>First Name: {{user.first_name}}</li>{% endif %}
     {% if user.last_name != '' %}<li>Last Name: {{user.last_name}}</li>{% endif %}
+    <h2>Posts</h2>
+    {% if user.posts != [] %}
+    {% for post in user.posts %}<li>{{post.title}}</li>{% endfor %}
+    {% else %}
+    <p>This user has no posts!</p>
+    {% endif %}
     <form action="/users/{{user.id}}/edit">
         <button>Edit User</button>
     </form>
