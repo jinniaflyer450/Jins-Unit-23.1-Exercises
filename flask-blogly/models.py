@@ -23,7 +23,7 @@ class User(db.Model):
 class Post(db.Model):
     """A post on the Blogly site."""
 
-    __Tablename__ = "posts"
+    __tablename__ = "posts"
 
     id = db.Column(db.Integer, primary_key= True, autoincrement=True)
     title = db.Column(db.String(200), nullable=False)
@@ -32,3 +32,20 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     user = db.relationship('User', backref='posts')
+    tags = db.relationship('Post', secondary='posts_tags', backref='posts')
+
+class Tag(db.Model):
+    """A tag on posts on the Blogly site."""
+
+    __tablename__ = "tags"
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, unique=True, nullable=False)
+
+class PostTag(db.Model):
+    """A model of the relationship between tags and posts on the Blogly site."""
+
+    __tablename__ = "posts_tags"
+
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
