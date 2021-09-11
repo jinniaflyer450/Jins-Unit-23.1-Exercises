@@ -130,7 +130,7 @@ def show_tag_list():
     whole_tags = Tag.query.all()
     tags = []
     for tag in whole_tags:
-        whole_tags.append(tag.name)
+        tags.append(tag.name)
     return render_template('taglist.html', tags = tags)
 
 
