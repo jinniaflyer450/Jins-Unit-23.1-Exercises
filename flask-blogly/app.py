@@ -85,7 +85,8 @@ def delete_user(user_id):
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
     post = Post.query.get(post_id)
-    return render_template('postdetail.html', post=post)
+    tags = Post.query.get(post_id).tags
+    return render_template('postdetail.html', post=post, tags=tags)
 
 @app.route('/users/<int:user_id>/posts/new')
 def add_post_form(user_id):

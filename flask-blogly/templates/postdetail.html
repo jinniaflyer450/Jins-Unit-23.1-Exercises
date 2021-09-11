@@ -8,6 +8,7 @@
 <p>This post has no content!</p>
 {% endif %}
 <p><em>Posted by {{post.user.username}}</em></p>
+<p><em>Tags:</em> {% for tag in tags%}<a href="/tags/{{tag.id}}">{{tag.name}}</a> {% endfor %}</p>
 <form action="/users/{{post.user.id}}">
     <button>Return To User</button>
 </form>
