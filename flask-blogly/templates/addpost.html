@@ -8,6 +8,10 @@
     <input type='text' name='title' id='title' required>
     <label for='content'>Content:</label>
     <input type='text' name='content' id='content'>
+    {% for tag in tags %}
+    <label for="{{tag.name}}">{{tag.name}}</label>
+    <input type="checkbox" id="{{tag.name}}" name="tags" value="{{tag.id}}">
+    {% endfor %}
     <button>Add Post</button>
 </form>
 <form action="users/{{user.id}}">

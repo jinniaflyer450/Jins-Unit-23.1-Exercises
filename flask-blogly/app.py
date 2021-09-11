@@ -91,30 +91,46 @@ def show_post(post_id):
 @app.route('/users/<int:user_id>/posts/new')
 def add_post_form(user_id):
     user = User.query.get(user_id)
-    return render_template('addpost.html', user=user)
+    tags = Tag.query.all()
+    return render_template('addpost.html', user=user, tags=tags)
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def add_post(user_id):
     title = request.form['title']
     content = request.form['content']
+    tags = request.form.getlist('tags')
     new_post = Post(title=title, content=content, user_id=user_id)
     db.session.add(new_post)
+    db.session.commit()
+    post_tags = []
+    for tag in tags:
+        post_tags.append(PostTag(tag_id=int(tag), post_id=new_post.id))
+    db.session.add_all(post_tags)
     db.session.commit()
     return redirect(f'/users/{user_id}')
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post_form(post_id):
     post = Post.query.get(post_id)
-    return render_template('editpost.html', post=post)
+    tags=Tag.query.all()
+    return render_template('editpost.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
     post = Post.query.get(post_id)
-    title = request.form['title']
-    content = request.form['content']
-    post.title = title
-    post.content = content
+    post_tags = PostTag.query.filter_by(post_id=post_id).all()
+    for post_tag in post_tags:
+        db.session.delete(post_tag)
+    db.session.commit()
+    tags = request.form.getlist('tags')
+    post.title = request.form["title"]
+    post.content = request.form["content"]
     db.session.add(post)
+    db.session.commit()
+    new_post_tags = []
+    for tag in tags:
+        new_post_tags.append(PostTag(tag_id=int(tag), post_id=post_id))
+    db.session.add_all(new_post_tags)
     db.session.commit()
     return redirect(f'/posts/{post_id}')
 
