@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Tag Details: {{tag.name}}{% endblock %}
+{% block content %}
+<h1>{{tag.name}}</h1>
+{% if posts != [] %}
+<ul>
+    {% for post in posts %}
+    <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+    {% endfor %}
+</ul>
+<a href="/tags">Return to Tag List</a>
+{% endif %}
+{% endblock %}

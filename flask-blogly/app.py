@@ -127,11 +127,14 @@ def delete_post(post_id):
 
 @app.route('/tags')
 def show_tag_list():
-    whole_tags = Tag.query.all()
-    tags = []
-    for tag in whole_tags:
-        tags.append(tag.name)
+    tags = Tag.query.all()
     return render_template('taglist.html', tags = tags)
+
+@app.route('/tags/<int:tag_id>')
+def show_tag_details(tag_id):
+    tag = Tag.query.get(tag_id)
+    posts = tag.posts
+    return render_template('tagdetails.html', tag=tag, posts=posts)
 
 
 
