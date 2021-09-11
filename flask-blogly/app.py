@@ -137,5 +137,17 @@ def show_tag_details(tag_id):
     posts = tag.posts
     return render_template('tagdetails.html', tag=tag, posts=posts)
 
+@app.route('/tags/new')
+def new_tag_form():
+    return render_template('newtag.html')
+
+@app.route('/tags/new', methods=["POST"])
+def add_new_tag():
+    name=request.form["name"]
+    new_tag=Tag(name=name)
+    db.session.add(new_tag)
+    db.session.commit()
+    return redirect('/tags')
+
 
 
