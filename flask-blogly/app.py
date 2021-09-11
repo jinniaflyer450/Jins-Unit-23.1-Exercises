@@ -149,5 +149,27 @@ def add_new_tag():
     db.session.commit()
     return redirect('/tags')
 
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag_form(tag_id):
+    tag=Tag.query.get(tag_id)
+    return render_template('edittag.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def edit_tag(tag_id):
+    tag=Tag.query.get(tag_id)
+    name=request.form["name"]
+    tag.name = name
+    db.session.add(tag)
+    db.session.commit()
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+    tag=Tag.query.get(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+    return redirect('/tags')
+
+
 
 
