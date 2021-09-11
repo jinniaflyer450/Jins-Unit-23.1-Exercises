@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, render_template, request, redirect, flash, url_for
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -124,5 +124,14 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(f'/users/{user_id}')
+
+@app.route('/tags')
+def show_tag_list():
+    whole_tags = Tag.query.all()
+    tags = []
+    for tag in whole_tags:
+        whole_tags.append(tag.name)
+    return render_template('taglist.html', tags = tags)
+
 
 

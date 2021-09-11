@@ -20,6 +20,9 @@ class User(db.Model):
     last_name = db.Column(db.String(30))
     image_url = db.Column(db.String(50), default="no_image")
 
+    posts = db.relationship('Post', backref='user')
+
+
 class Post(db.Model):
     """A post on the Blogly site."""
 
@@ -31,9 +34,6 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    user = db.relationship('User', backref='posts')
-    tags = db.relationship('Post', secondary='posts_tags', backref='posts')
-
 class Tag(db.Model):
     """A tag on posts on the Blogly site."""
 
@@ -42,6 +42,8 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, unique=True, nullable=False)
 
+    posts = db.relationship('Post', secondary='posts_tags', backref='tags')
+    
 class PostTag(db.Model):
     """A model of the relationship between tags and posts on the Blogly site."""
 
